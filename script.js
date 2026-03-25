@@ -8,22 +8,30 @@ function myFunc(){
 }
 // 2) getRandomNum(max): 1..max int or 0 if invalid
 function getRandomNum(max){
-  return max.Math.max(max)
+  if (typeof max !== 'number' || max < 1 || !Number.isInteger(max)) return 0;
+  return Math.floor(Math.random() * max) + 1;
 }
 // 3) myAdder(x, y): numeric sum
 function myAdder(x, y) {
-  sum=x++y
-  return sum;
+  return x + y;
 }
 // 4) distance(x1, y1, x2, y2): Euclidean distance
 function distance(x1, y1, x2, y2){
-  xdist= (x1-x2)**2;
-  ydist= (y1-y2)**2;
-  dist = Math.sqrt(xdist + ydist);
+  let xdist = (x1 - x2) ** 2;
+  let ydist = (y1 - y2) ** 2;
+  let dist = Math.sqrt(xdist + ydist);
   return dist;
 }
 
 // 5) quadratic(a, b, c): roots of ax^2 + bx + c = 0
+function quadratic(a, b, c) {
+  let discriminant = b * b - 4 * a * c;
+  if (discriminant < 0) return null;
+  let sqrtD = Math.sqrt(discriminant);
+  let root1 = (-b + sqrtD) / (2 * a);
+  let root2 = (-b - sqrtD) / (2 * a);
+  return [root1, root2];
+}
 
 
 // ----- Helpers -----
@@ -38,27 +46,27 @@ function onMyFuncClick() {
 }
 
 function onRandomClick() {
-  const max = $('maxRand').value;
+  const max = parseInt($('maxRand').value);
   const val = getRandomNum(max);
   setText('outRandom', val);
 }
 
 function onAdderClick() {
-  const x = $('addX').value;
-  const y = $('addY').value;
+  const x = parseFloat($('addX').value);
+  const y = parseFloat($('addY').value);
   const sum = myAdder(x, y);
   setText('outAdder', sum);
 }
 
 function onDistanceClick() {
-  const x1 = $('x1').value, y1 = $('y1').value;
-  const x2 = $('x2').value, y2 = $('y2').value;
+  const x1 = parseFloat($('x1').value), y1 = parseFloat($('y1').value);
+  const x2 = parseFloat($('x2').value), y2 = parseFloat($('y2').value);
   const d = distance(x1, y1, x2, y2);
   setText('outDistance', d);
 }
 
 function onQuadraticClick() {
-  const a = $('qa').value, b = $('qb').value, c = $('qc').value;
+  const a = parseFloat($('qa').value), b = parseFloat($('qb').value), c = parseFloat($('qc').value);
   const roots = quadratic(a, b, c);
-  setText('outQuadratic', Array.isArray(roots) ? roots.join(', ') : roots);
+  setText('outQuadratic', Array.isArray(roots) ? roots.join(', ') : 'No real roots');
 }
