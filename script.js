@@ -26,12 +26,20 @@ function distance(x1, y1, x2, y2){
 // 5) quadratic(a, b, c): roots of ax^2 + bx + c = 0
 function quadratic(a, b, c) {
   let discriminant = b * b - 4 * a * c;
-  if (discriminant < 0) return null;
-  let sqrtD = Math.sqrt(discriminant);
-  let root1 = (-b + sqrtD) / (2 * a);
-  let root2 = (-b - sqrtD) / (2 * a);
-  return [root1, root2];
+  let real = -b / (2 * a);
+  if (discriminant >= 0) {
+    let sqrtD = Math.sqrt(discriminant);
+    let root1 = real + sqrtD / (2 * a);
+    let root2 = real - sqrtD / (2 * a);
+    return [root1.toString(), root2.toString()];
+  } else {
+    let imag = Math.sqrt(-discriminant) / (2 * a);
+    let root1 = `${real} + ${imag}i`;
+    let root2 = `${real} - ${imag}i`;
+    return [root1, root2];
+  }
 }
+
 
 
 // ----- Helpers -----
