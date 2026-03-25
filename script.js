@@ -8,11 +8,11 @@ function myFunc(){
 }
 // 2) getRandomNum(max): 1..max int or 0 if invalid
 function getRandomNum(max){
-  
+  return max.Math.max(max)
 }
 // 3) myAdder(x, y): numeric sum
 function myAdder(x, y) {
-  sum=x+y
+  sum=x++y
   return sum;
 }
 // 4) distance(x1, y1, x2, y2): Euclidean distance
